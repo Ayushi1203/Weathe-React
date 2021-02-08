@@ -5,27 +5,18 @@ var stations = {
     "Lund": [55.7, 13.12],
     "Kiruna": [67.967, 20.309],
 }
-var $ = document.querySelector.bind(document)
-
-var html = ""
-for (var stat in stations) {
-    html += "<option value=" + stat + ">" + stat + "</option>"
-}
-console.log('html : : ' + html);
-html = "Compare <select id=stat1>" + html + "</select> and <select id=stat2>" + html + "</select>"
-html += "<button id=compare>Compare!</button>"
-html = "<p>" + html + "</p>"
-
-$("#main").innerHTML = html
-$("#stat1").value = "Stockholm"
-$("#stat2").value = "Uppsala"
-
-
-
-$("#compare").onClick = onClick
-
 
 function main(data1, data2) {
+    var $ = document.querySelector.bind(document)
+
+    var html = ""
+
+    for (var stat in stations) {
+        html += "<option value=" + stat + ">" + stat + "</option>"
+    }
+    html = "Compare <select id=stat1>" + html + "</select> and <select id=stat2>" + html + "</select>"
+    html += "<button id=compare>Compare!</button>"
+    html = "<p>" + html + "</p>"
 
     if (data1 && data2) {
         data1 = data1.timeSeries
@@ -65,51 +56,56 @@ function main(data1, data2) {
         }
         table = "<table>" + table + "</table>"
 
+        html += table
 
-        $("#main").innerHTML = html
     }
 
-}
+    $("#main").innerHTML = html
+    $("#stat2").value = "Umeå"
 
-function onClick() {
+    $("#stat1").onchange = onchange
+    $("#stat2").onchange = onchange
+
     var stat1 = stations[$("#stat1").value]
     var stat2 = stations[$("#stat2").value]
-    var request = new XMLHttpRequest();
-    request.open("GET", "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/" + stat1[1] + "/lat/" + stat1[0] + "/data.json", true);
-    console.log('stst1>>> ' + stat1[0])
-    console.log('stst2>>> ' + stat2[0])
 
-    request.onload = function() {
-        if (request.status == 200) {
-            // Success!
-            var data1 = JSON.parse(request.responseText);
-            request = new XMLHttpRequest();
-            request.open("GET", "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/" + stat2[1] + "/lat/" + stat2[0] + "/data.json", true);
+    function onchange() {
 
-            request.onload = function() {
-                if (request.status == 200) {
-                    var data2 = JSON.parse(request.responseText);
-                    main(data1, data2)
-                } else {
+        var request = new XMLHttpRequest();
+        request.open("GET", "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/" + stat1[1] + "/lat/" + stat1[0] + "/data.json", true);
+
+        request.onload = function() {
+            if (request.status == 200) {
+                // Success!
+                var data1 = JSON.parse(request.responseText);
+                request = new XMLHttpRequest();
+                request.open("GET", "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/" + stat2[1] + "/lat/" + stat2[0] + "/data.json", true);
+
+                request.onload = function() {
+                    if (request.status == 200) {
+                        var data2 = JSON.parse(request.responseText);
+                        main(data1, data2)
+                    } else {
+                        $("#main").innerHTML += 'error!'
+                    }
+                };
+
+                request.onerror = function() {
                     $("#main").innerHTML += 'error!'
-                }
-            };
+                };
 
-            request.onerror = function() {
+                request.send();
+            } else {
                 $("#main").innerHTML += 'error!'
-            };
+            }
+        };
 
-            request.send();
-        } else {
+        request.onerror = function() {
             $("#main").innerHTML += 'error!'
-        }
-    };
+        };
 
-    request.onerror = function() {
-        $("#main").innerHTML += 'error!'
-    };
+        request.send();
 
-    request.send();
-
+    }
 }
 main()

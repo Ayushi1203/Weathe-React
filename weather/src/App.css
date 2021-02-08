@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700&display=swap");
+* {
+    font-family: "Source Sans Pro", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+    outline: none;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 8rem;
+    letter-spacing: 0.1rem;
+    font-style: italic;
+    color: #40b48e;
+    text-shadow: 0 0.2rem 5rem rgb(119, 115, 115);
+    text-transform: uppercase;
+    margin: 4rem 0;
+}
+
+.search-form {
+    width: 60rem;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d3d3d3;
+    border-radius: 0.5rem;
+    margin-bottom: 5rem;
+    box-shadow: 1rem 2rem 5rem #aaa;
+    position: relative;
+}
+
+.weather {
+    width: 30rem;
+    margin: 3rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #d3d3d3;
+    padding: 2rem;
+    position: relative;
+    border-radius: 0.5rem;
+    box-shadow: 2rem 3rem 5rem #aaa;
+}
+
+.station {
+    width: 30rem;
+    margin: 3rem;
+    display: block;
+    flex-direction: column;
+    background-color: #d3d3d3;
+    padding: 2rem;
+    position: absolute;
+    border-radius: 0.5rem;
+    box-shadow: 2rem 3rem 5rem #aaa;
+}
+
+.search-form button {
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #40b48e;
+    border: none;
+    border-radius: 0.5rem;
+    height: 3rem;
+}

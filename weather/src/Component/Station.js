@@ -95,7 +95,8 @@ const Station = () => {
         </option> 
         <option value = "[63.8, 20.26]" > Umeå </option> 
         <option value = "[59.33, 18.06]" > Stockholm </option>
-
+        <option value = "[55.7,13.12]" > Lund </option>
+        <option value = " [67.967, 20.309]" > Kiruna </option>
         </select> 
         </label > 
         </form>
@@ -109,7 +110,8 @@ const Station = () => {
         Uppsala </option> 
         <option value = "[63.8, 20.26]" > Umeå </option>
          <option value = "[59.33, 18.06]" > Stockholm </option>
-
+         <option value = "[55.7,13.12]" > Lund </option>
+        <option value = " [67.967, 20.309]" > Kiruna </option>
         </select> 
         </label> 
         </form>
